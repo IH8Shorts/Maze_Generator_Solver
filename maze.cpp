@@ -1,5 +1,3 @@
-/* Your code here! */
-/* Your code here! */
 #include "dsets.h"
 #include "maze.h"
 #include <iostream>
@@ -11,29 +9,9 @@ SquareMaze::SquareMaze(){
 
 }
 
-
-
-//makes a new SquareMaze of the given variables
-//if there is already a given square maze, clear it
-//will have to delete random walls in this one
-//keep deleting until you cant delete anymore and a cycle will not happen
-//dont delete perimeter walls
-//only have to work with the bottom and right walls
-//will end up with a completely connected disjoint set
-
 //make a new maze with no cycles and it is randomized
 void SquareMaze::makeMaze(int width, int height){
-  //plan
-  //if any of the variables are filled
-  //IF VECTOR SIZE != 0, reset everything to 0
-  //then start making the MAZE
-  //set every pair with a true in both cases, so both have a wall
-  //Create a disjoint set class with width * height elements
-  //going to have to make this a 1D vector disjoint set with that stupid conversion to 2 d using width and height
-  //start using the rand funciton until every element is in a common disjoint set, where every element's find leads to the same element
-  //then we are done removing walls
-  //make sure you dont remove boundary walls
-  //so the last column and row
+  
   width_ = 0;
   height_ = 0;
   grid.resize(0);
@@ -114,7 +92,6 @@ bool SquareMaze::canTravel(int x, int y, int dir){
   //check if the x,y coordinate is on an  edge
   //then we do special cases just for movin gthrough boundaries, which we cant
   //if not, then if up or left, then move to that cell and check the boundary
-  //then we good
   if(dir==0){
     if(x==width_-1){
       return false;
@@ -198,27 +175,17 @@ void SquareMaze::setWall(int x, int y, int dir, bool exists){
 //solves the square maze
 //Need to go from top right to bottom
 //the cell at on the bottom row which is the furthest distance away from (0,0) - top left
-//how to get that, IDK
-//probably BFS the whole maze and label every point with a distance and chose the furthest distance away
+//BFS the whole maze and label every point with a distance and chose the furthest distance away
 //if two have the smallest distance, choose the smallest x value, so the leftmost
 //returns a vector for the path they took to that cell
 //0 is right
 //1 is down
 //2 is leftmost
 //3 is up
-//RUN IN LINEAR TIME TO THE NUMBER OF CELLS IN THE MAZE
 
 //solevs the maze and gives out a vector of the path it had used.
 vector<int> SquareMaze::solveMaze(){
   vector<int> paths;
-  //plan
-  //since i want to to bfs, create a 2d back vector holding the direction of travel
-  //will have to work out the kinks
-  //but now we check the bottom row for the largest value
-  //do a reverse from that to origin
-  //make sure you store the path to return in a new VECTOR
-  //then push back to the return VECTOR
-  //SHOULD BE good
 
   queue<int> qx;
   queue<int> qy;
@@ -535,7 +502,7 @@ vector<int> SquareMaze::solveMaze(){
 
 
 
-  //I should have all the data I need to compile a path list
+  //I have all the data I need to compile a path list
   //first, search the bottom row for the longest path
 
   int longest_distance = 0;
@@ -548,7 +515,6 @@ vector<int> SquareMaze::solveMaze(){
   }
 
   //now we have the exact endpoint;
-  //trace back boiiii
   int prev_x_pos = x_position;
   int prev_y_pos = height_-1;
   vector<int> traceback;
@@ -586,8 +552,7 @@ vector<int> SquareMaze::solveMaze(){
 //for each cell, call it and check if you have walls.
 //if you have a right wall -> blacken pixels ((x+1)*10,y*10+k) where k is from 0 to 10
 //if you have a bottom wall -> blacken pixels (x*10+k, (y+1)*10) where k is from 0 to 10
-//THAT IS IT
-//EZ
+
 
 //Outputs a PNG of the maze you have created
 PNG * SquareMaze::drawMaze() const{
@@ -646,14 +611,13 @@ PNG * SquareMaze::drawMaze() const{
 
 
 
-  //plan
-  //create that png
-  ///resize it or just create the png to that SIZE
+  // plan
+  // create that png
+  // resize it or just create the png to that SIZE
   // make it all white
-  // maek the edges black
+  // make the edges black
   // remove the black from the ENTRANCE
   // go through every cell and make a black splotch if there is a wall
-  //that should be it
   return temp;
 }
 
@@ -782,6 +746,5 @@ PNG * SquareMaze::drawMazeWithSolution(){
   //do this till you get to the end
   //that last cell, create an exit
   //remove those black pixels
-  //WE DONE
   return temp;
 }
